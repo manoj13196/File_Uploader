@@ -29,7 +29,7 @@ export const FilesPage: React.FC = () => {
   const fetchFiles = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:3000/folders/${id}/files`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/folders/${id}/files`, {
         withCredentials: true,
       });
       setFiles(res.data);
@@ -48,7 +48,7 @@ export const FilesPage: React.FC = () => {
   // Delete file
   const onDelete = async (fileId: number) => {
     try {
-      await axios.delete(`http://localhost:3000/folders/${id}/files/${fileId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/folders/${id}/files/${fileId}`, {
         withCredentials: true,
       });
       message.success("File deleted");
@@ -61,7 +61,7 @@ export const FilesPage: React.FC = () => {
   // Upload file
   const props = {
     name: "file",
-    action: `http://localhost:3000/folders/${id}/files/upload`,
+    action: `${import.meta.env.VITE_API_URL}/folders/${id}/files/upload`,
     withCredentials: true,
     onChange(info: any) {
       if (info.file.status === "done") {

@@ -30,7 +30,7 @@ export const FoldersPage: React.FC = () => {
   const fetchFolders = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/folders", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}folders`, {
         withCredentials: true,
       });
       setFolders(res.data);
@@ -47,7 +47,7 @@ export const FoldersPage: React.FC = () => {
 
   const onCreate = async (values: { name: string }) => {
     try {
-      await axios.post("http://localhost:3000/folders", values, {
+      await axios.post(`${import.meta.env.VITE_API_URL}folders`, values, {
         withCredentials: true,
       });
       message.success("Folder created");
@@ -60,7 +60,7 @@ export const FoldersPage: React.FC = () => {
 
   const onDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/folders/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/folders/${id}`, {
         withCredentials: true,
       });
       message.success("Folder deleted");

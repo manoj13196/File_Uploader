@@ -9,9 +9,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
- const isProd = process.env.NODE_ENV === 'production';
+
   app.enableCors({
-    origin:process.env.CLIENT_URL?.split(',') || ['http://localhost:5173'],
+    origin:process.env.CLIENT_URL,
     credentials:true,
   });
 
@@ -23,8 +23,8 @@ async function bootstrap() {
       saveUninitialized:false,
       cookie: {
         httpOnly: true,
-        secure: isProd,        
-        sameSite: isProd ? 'none' : 'lax',
+        secure: true,
+        sameSite: 'none',
         maxAge:1000*60*60*24,
       },
 
