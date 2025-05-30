@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post,Request,UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post,Request,UnauthorizedException,UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RegisterUserDto } from "./dto/register_user.dto";
 import { AuthService } from "./auth.service";
@@ -23,12 +23,16 @@ login(@Request() req) {
   });
 }
 
-    @Get('me')
-    getme(@Request() req){
-        const { password, ...safeUser } = req.user;
-  return safeUser;
+   @UseGuards(AuthGuard('session'))
+  @Get('me')
+  getme(@Request() req) {
+    if (!req.user) {
+      throw new UnauthorizedException('User not logged in');
     }
 
+    const { password, ...safeUser } = req.user;
+    return safeUser;
+  }
     @Post('logout')
     logout(@Request() req){
         req.session.destroy();

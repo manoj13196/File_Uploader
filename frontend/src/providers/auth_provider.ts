@@ -1,7 +1,6 @@
 import { AuthBindings } from "@refinedev/core"
-import { PassThrough } from "stream"
+
 import axios from "axios";
-import { message } from "antd";
 
 export const authProvider:AuthBindings={
 
@@ -10,7 +9,7 @@ export const authProvider:AuthBindings={
            await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
       method: "POST",
       credentials: "include",
-    });
+    });   
 
             await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`,{
                 email, password,
