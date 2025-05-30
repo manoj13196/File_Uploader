@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(cookieParser());
  const isProd = process.env.NODE_ENV === 'production';
   app.enableCors({
-    origin:process.env.CLIENT_URL,
+    origin:process.env.CLIENT_URL?.split(',') || ['http://localhost:5173'],
     credentials:true,
   });
 
